@@ -1,0 +1,109 @@
+{{#if details.events}}
+  <div class="p-link">
+    <a href="{{block.userOptions.url}}/event-analysis-event-analyzer?search[attack_type]=0&search[sensor_type]=2&search[source_ip]={{block.entity.value}}&search[autoload]=true">Pivot to TrapX Event Analyzer {{fa-icon "external-link-square" class="external-icon" fixedWidth=true}}</a>
+  </div>
+  {{#each details.events as |result index|}}
+    <h1 class="p-title">
+        {{fa-icon "eye" fixedWidth=true}}  Event Details
+    </h1>
+    {{#if result.event_timestamp}}
+      <div>
+        <span class="p-key">Event Time:</span>
+        <span class="p-value">{{result.event_timestamp}}</span>
+      </div>
+    {{/if}}
+    {{#if result.attacker_ip}}
+      <div>
+        <span class="p-key">Attacker IP:</span>
+        <span class="p-value">{{result.attacker_ip}}</span>
+      </div>
+    {{/if}}
+    {{#if result.attacked_port}}
+      <div>
+        <span class="p-key">Attacked Port:</span>
+        <span class="p-value">{{result.attacked_port}}</span>
+      </div>
+    {{/if}}
+    {{#if result.destination_ip}}
+      <div>
+        <span class="p-key">Destination IP:</span>
+        <span class="p-value">{{result.destination_ip}}</span>
+      </div>
+    {{/if}}
+    {{#if result.destination_port}}
+      <div>
+        <span class="p-key">Destination Port:</span>
+        <span class="p-value">{{result.destination_port}}</span>
+      </div>
+    {{/if}}
+    {{#if result.protocol}}
+      <div>
+        <span class="p-key">Protocol:</span>
+        <span class="p-value">{{result.protocol}}</span>
+      </div>
+    {{/if}}
+    {{#if result.event_name}}
+      <div>
+        <span class="p-key">Event Name:</span>
+        <span class="p-value">{{result.event_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.severity}}
+      {{#if (eq result.severity "high")}}
+        <div>
+          <span class="p-key">Event Severity:</span>
+          <span class="p-value" style="color:red">HIGH</span>
+        </div>
+      {{/if}}
+      {{#if (eq result.severity "medium")}}
+        <div>
+          <span class="p-key">Event Severity:</span>
+          <span class="p-value" style="color:orange">MEDIUM</span>
+        </div>
+      {{/if}}
+      {{#if (eq result.severity "low")}}
+        <div>
+          <span class="p-key">Event Severity:</span>
+          <span class="p-value" style="color:yellow">LOW</span>
+        </div>
+      {{/if}}
+    {{/if}}
+    {{#if result.malware_name}}
+      <div>
+        <span class="p-key">Malware Name:</span>
+        <span class="p-value">{{result.malware_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.malware_md5}}
+      <div>
+        <span class="p-key">Malware MD5:</span>
+        <span class="p-value">{{result.malware_md5}}</span>
+      </div>
+    {{/if}}
+    {{#if result.company_name}}
+      <div>
+        <span class="p-key">Company Name:</span>
+        <span class="p-value">{{result.company_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.appliance_name}}
+      <div>
+        <span class="p-key">Appliance Name:</span>
+        <span class="p-value">{{result.appliance_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.trap_name}}
+      <div>
+        <span class="p-key">Trap Name:</span>
+        <span class="p-value">{{result.trap_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.trap_ip}}
+      <div>
+        <span class="p-key">Trap IP:</span>
+        <span class="p-value">{{result.trap_ip}}</span>
+      </div>
+    {{/if}}
+    <hr>
+  {{/each}}
+{{/if}}
