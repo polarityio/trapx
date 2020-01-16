@@ -66,7 +66,7 @@ module.exports = {
     // the url parameter (by embedding the auth info in the uri)
     proxy: '',
 
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   },
   logging: {
     level: 'info' //trace, debug, info, warn, error, fatal
@@ -103,7 +103,7 @@ module.exports = {
       description:
         'Search Events with the specified Trap Type (Full OS or Emulation)',
       default: {
-        value: 'fullOS',
+        value: 'Full OS',
         display: 'Full OS'
       },
       type: 'select',
