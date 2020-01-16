@@ -85,7 +85,7 @@ function doLookup(entities, options, cb) {
             entity,
             body
           };
-        } else if (res.statusCode === 404 || res.statusCode === 202) {
+        } else if (res.statusCode === 202) {
           result = {
             entity,
             body: null
