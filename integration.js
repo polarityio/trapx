@@ -49,16 +49,23 @@ function startup(logger) {
   requestWithDefaults = request.defaults(defaults);
 }
 
-function doLookup(entities, options, cb) {
+function doLookup(entities, { url, ...optionsWithoutUrl }, cb) {
   let lookupResults = [];
   let tasks = [];
+  const options = {
+    ...optionsWithoutUrl,
+    url: url && url.endsWith("/") ? url.substring(0, url.length - 1) : url
+  };
 
   Logger.debug(entities);
 
-  entities.forEach(entity => {
-    let postData = {"api_key": options.apiKey,"filter":{"trap_type":options.trapType.value,"attacker_address":entity.value}};
+  entities.forEach((entity) => {
+    let postData = {
+      api_key: options.apiKey,
+      filter: { trap_type: options.trapType.value, attacker_address: entity.value }
+    };
     let requestOptions = {
-      method: 'POST',
+      method: "POST",
       uri: `${options.url}/api/v1.2/events/search`,
       body: postData,
       json: true
@@ -66,8 +73,8 @@ function doLookup(entities, options, cb) {
 
     Logger.trace({ uri: requestOptions }, "Request URI");
 
-    tasks.push(function (done) {
-      requestWithDefaults(requestOptions, function (error, res, body) {
+    tasks.push(function(done) {
+      requestWithDefaults(requestOptions, function(error, res, body) {
         if (error) {
           return done(error);
         }
@@ -97,28 +104,30 @@ function doLookup(entities, options, cb) {
           };
           if (res.statusCode === 401) {
             error = {
-              err: 'Unauthorized',
-              detail: 'Request had Authorization header but token was missing or invalid. Please ensure your API key is valid.'
+              err: "Unauthorized",
+              detail:
+                "Request had Authorization header but token was missing or invalid. Please ensure your API key is valid."
             };
           } else if (res.statusCode === 403) {
             error = {
-              err: 'Access Denied',
-              detail: 'Not enough access permissions.'
+              err: "Access Denied",
+              detail: "Not enough access permissions."
             };
           } else if (res.statusCode === 404) {
             error = {
-              err: 'Not Found',
-              detail: 'Requested item doesn’t exist or not enough access permissions.'
+              err: "Not Found",
+              detail: "Requested item doesn’t exist or not enough access permissions."
             };
           } else if (res.statusCode === 429) {
             error = {
-              err: 'Too Many Requests',
-              detail: 'Daily number of requests exceeds limit. Check Retry-After header to get information about request delay.'
+              err: "Too Many Requests",
+              detail:
+                "Daily number of requests exceeds limit. Check Retry-After header to get information about request delay."
             };
           } else if (Math.round(res.statusCode / 10) * 10 === 500) {
             error = {
-              err: 'Server Error',
-              detail: 'Unexpected Server Error'
+              err: "Server Error",
+              detail: "Unexpected Server Error"
             };
           }
 
@@ -137,7 +146,7 @@ function doLookup(entities, options, cb) {
       return;
     }
 
-    results.forEach(result => {
+    results.forEach((result) => {
       if (result.body === null || result.body.number_of_events === 0) {
         lookupResults.push({
           entity: result.entity,
@@ -175,18 +184,8 @@ function validateStringOption(errors, options, optionName, errMessage) {
 function validateOptions(options, callback) {
   let errors = [];
 
-  validateStringOption(
-    errors,
-    options,
-    "url",
-    "You must provide a valid URL"
-  );
-  validateStringOption(
-    errors,
-    options,
-    "apiKey",
-    "You must provide a valid API Key"
-  );
+  validateStringOption(errors, options, "url", "You must provide a valid URL");
+  validateStringOption(errors, options, "apiKey", "You must provide a valid API Key");
 
   callback(null, errors);
 }
