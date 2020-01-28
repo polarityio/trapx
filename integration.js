@@ -168,6 +168,15 @@ function doLookup(entities, { url, ...optionsWithoutUrl }, cb) {
   });
 }
 
+function validateUrl(errors, url) {
+  if (url && url.endsWith("//")) {
+    errors.push({
+      key: "url",
+      message: "Your Url must not end with a //"
+    });
+  }
+}
+
 function validateStringOption(errors, options, optionName, errMessage) {
   if (
     typeof options[optionName].value !== "string" ||
@@ -184,6 +193,7 @@ function validateStringOption(errors, options, optionName, errMessage) {
 function validateOptions(options, callback) {
   let errors = [];
 
+  validateUrl(errors, options.url)
   validateStringOption(errors, options, "url", "You must provide a valid URL");
   validateStringOption(errors, options, "apiKey", "You must provide a valid API Key");
 
