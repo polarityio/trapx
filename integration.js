@@ -193,7 +193,7 @@ function validateStringOption(errors, options, optionName, errMessage) {
 function validateOptions(options, callback) {
   let errors = [];
 
-  validateUrl(errors, options.url)
+  validateUrl(errors, options.url.value);
   validateStringOption(errors, options, "url", "You must provide a valid URL");
   validateStringOption(errors, options, "apiKey", "You must provide a valid API Key");
 
