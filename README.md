@@ -2,6 +2,10 @@
 
 The Polarity TrapX integration allows Polarity to search the TrapX DeceptionGrid API to return event information on IP addresses.
 
+<img width="350" alt="Example Integration Image" src="./assets/integration-example.png">
+
+To learn more about TrapX please see their official website at [https://trapx.com/product/](https://trapx.com/product/)
+
 ## TrapX URL
 The base URL for the DeceptionGrid TSOC API including the schema (i.e., https://).
 
