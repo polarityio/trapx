@@ -6,14 +6,14 @@ The Polarity TrapX integration allows Polarity to search the TrapX DeceptionGrid
 
 To learn more about TrapX please see their official website at [https://trapx.com/product/](https://trapx.com/product/)
 
-## TrapX URL
-The base URL for the DeceptionGrid TSOC API including the schema (i.e., https://).
+## TrapX TSOC URL
+The base URL for your TrapX Security Operation Console (TSOC) including the schema (i.e., https://) and port (e.g., https://mytrapx:8443)
 
-## TrapX API Key
-Your TrapX API key.
+## TrapX TSOC API Key
+Valid TrapX TSOC API key.  Available via https://mytrapx:8443/settings-apikey.  Ensure that you use the "Main API Key", NOT the "Token API Key."
 
-## Trap Type
-Search Events with the specified Trap Type (Full OS or Emulation).
+## Trap Type to Search
+Search Events with the specified Trap Type (Full OS, Emulation or NIS).
 
 ## Installation Instructions
 

@@ -1,6 +1,19 @@
 {{#if details.number_of_events}}
   <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
     <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
-    <span class="integration-text-color">Total Events: {{details.number_of_events}}</span>
+    <span class="integration-text-color">Total Results: {{details.number_of_events}}</span>
+  </span>
+{{/if}}
+
+{{#if details.binaryFilesAvailable}}
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">Binary File(s) Available</span>
+  </span>
+{{/if}}
+{{#if details.pcapFilesAvailable}}
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">PCAP File(s) Available</span>
   </span>
 {{/if}}
