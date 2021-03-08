@@ -1,6 +1,38 @@
 {{#if details.number_of_events}}
   <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
     <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
-    <span class="integration-text-color">Total Events: {{details.number_of_events}}</span>
+    <span class="integration-text-color">Total Results: {{details.number_of_events}}</span>
+  </span>
+{{/if}}
+
+{{#if details.binaryFilesAvailable}}
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">Binary File(s) Available</span>
+  </span>
+{{/if}}
+{{#if details.pcapFilesAvailable}}
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">PCAP File(s) Available</span>
+  </span>
+{{/if}}
+
+
+{{#if details.highestSeverityOfTheWeek}}
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">
+      Highest Severity Past 7 Days:
+      {{#if (eq details.highestSeverityOfTheWeek 'low')}}
+        <span style="color: #00CD33">{{fa-icon "circle" fixedWidth=true}}</span>Low
+      {{/if}}
+      {{#if (eq details.highestSeverityOfTheWeek 'medium')}}
+        <span style="color: #FF9000">{{fa-icon "dot-circle" fixedWidth=true}}</span>Medium
+      {{/if}}
+      {{#if (eq details.highestSeverityOfTheWeek 'high')}}
+        <span style="color: rgba(255, 23, 68, 0.7)">{{fa-icon "bullseye" fixedWidth=true}}</span>High
+      {{/if}}
+    </span>
   </span>
 {{/if}}

@@ -15,7 +15,7 @@ module.exports = {
    * @type String
    * @required
    */
-  acronym: 'TRPX',
+  acronym: 'TRAPX',
   /**
    * Description for this integration which is displayed in the Polarity integrations user interface
    *
@@ -23,8 +23,10 @@ module.exports = {
    * @optional
    */
   description:
-    'TrapX DeceptionGrid protects your valuable assets against a multitude of attacks including malicious insiders and sophisticated cybercriminals',
-  entityTypes: ['IPv4'],
+    'TrapX DeceptionGrid is the industry’s first software platform that activates Active Defense to enable security teams to proactively plan, deploy, test and refine Deception deployments against attack scenarios outlined in MITRE ATT&CK.',
+  defaultColor: 'light-blue',
+  entityTypes: ['IPv4', 'domain'],
+  styles: ['./styles/style.less'],
   /**
    * Provide custom component logic and template for rendering the integration details block.  If you do not
    * provide a custom template and/or component then the integration will display data as a table of key value
@@ -81,8 +83,8 @@ module.exports = {
   options: [
     {
       key: 'url',
-      name: 'TrapX DeceptionGrid URL',
-      description: 'The base URL for the DeceptionGrid TSOC API including the schema (i.e., https://)',
+      name: 'TSOC URL',
+      description: 'The base URL for your TSOC instance including the schema and port (i.e., https://mytrapx:8443)',
       type: 'text',
       default: '',
       userCanEdit: false,
@@ -91,7 +93,7 @@ module.exports = {
     {
       key: 'apiKey',
       name: 'API Key',
-      description: 'Valid TrapX API Key.',
+      description: 'Valid TrapX TSOC API Key.',
       default: '',
       type: 'password',
       userCanEdit: true,
@@ -99,9 +101,9 @@ module.exports = {
     },
     {
       key: 'trapType',
-      name: 'Trap Type to search',
+      name: 'Trap Type to Search',
       description:
-        'Search Events with the specified Trap Type (Full OS or Emulation)',
+        'Search Events with the specified trap type (Full OS, Emulation or NIS).',
       default: {
         value: 'Full OS',
         display: 'Full OS'
@@ -115,6 +117,10 @@ module.exports = {
         {
           value: 'Emulation',
           display: 'Emulation'
+        },
+        {
+          value: 'NIS',
+          display: 'NIS'
         }
       ],
       multiple: false,
