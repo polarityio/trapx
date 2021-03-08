@@ -1,85 +1,25 @@
 {{#if details.events}}
-  <div class="p-link">
-    <a href="{{block.userOptions.url}}/event-analysis-event-analyzer?search[attack_type]=0&search[sensor_type]=2&search[source_ip]={{block.entity.value}}&search[autoload]=true">Pivot to TrapX Event Analyzer {{fa-icon "external-link-square" class="external-icon" fixedWidth=true}}</a>
-  </div>
   {{#each details.events as |result index|}}
-    <h1 class="p-title">
-        {{fa-icon "eye" fixedWidth=true}}  Event Details
-    </h1>
-    {{#if result.event_timestamp}}
-      <div>
-        <span class="p-key">Event Time:</span>
-        <span class="p-value">{{result.event_timestamp}}</span>
-      </div>
+    {{#if (gt index 0)}}
+      <hr>
     {{/if}}
-    {{#if result.attacker_ip}}
-      <div>
-        <span class="p-key">Attacker IP:</span>
-        <span class="p-value">{{result.attacker_ip}}</span>
-      </div>
-    {{/if}}
-    {{#if result.attacked_port}}
-      <div>
-        <span class="p-key">Attacked Port:</span>
-        <span class="p-value">{{result.attacked_port}}</span>
-      </div>
-    {{/if}}
-    {{#if result.destination_ip}}
-      <div>
-        <span class="p-key">Destination IP:</span>
-        <span class="p-value">{{result.destination_ip}}</span>
-      </div>
-    {{/if}}
-    {{#if result.destination_port}}
-      <div>
-        <span class="p-key">Destination Port:</span>
-        <span class="p-value">{{result.destination_port}}</span>
-      </div>
-    {{/if}}
-    {{#if result.protocol}}
-      <div>
-        <span class="p-key">Protocol:</span>
-        <span class="p-value">{{result.protocol}}</span>
-      </div>
-    {{/if}}
-    {{#if result.event_name}}
-      <div>
-        <span class="p-key">Event Name:</span>
-        <span class="p-value">{{result.event_name}}</span>
-      </div>
-    {{/if}}
-    {{#if result.severity}}
-      {{#if (eq result.severity "high")}}
-        <div>
-          <span class="p-key">Event Severity:</span>
-          <span class="p-value" style="color:red">HIGH</span>
-        </div>
+    <span class="p-title">Result #{{inc index}}:</span>
+    <div>
+      {{#if result.severity}}
+        <span class="p-key">Severity:</span>
+        <span class="p-value">
+          {{#if (eq result.severity 'low')}}
+            <span style="color: #00CD33">{{fa-icon "circle" fixedWidth=true}}</span> Low
+          {{/if}}
+          {{#if (eq result.severity 'medium')}}
+            <span style="color: #FF9000">{{fa-icon "dot-circle" fixedWidth=true}}</span> Medium
+          {{/if}}
+          {{#if (eq result.severity 'high')}}
+            <span style="color: rgba(255, 23, 68, 0.7)">{{fa-icon "bullseye" fixedWidth=true}}</span> High
+          {{/if}}
+        </span>
       {{/if}}
-      {{#if (eq result.severity "medium")}}
-        <div>
-          <span class="p-key">Event Severity:</span>
-          <span class="p-value" style="color:orange">MEDIUM</span>
-        </div>
-      {{/if}}
-      {{#if (eq result.severity "low")}}
-        <div>
-          <span class="p-key">Event Severity:</span>
-          <span class="p-value" style="color:gray">LOW</span>
-        </div>
-      {{/if}}
-    {{/if}}
-    {{#if result.malware_name}}
-      <div>
-        <span class="p-key">Malware Name:</span>
-        <span class="p-value">{{result.malware_name}}</span>
-      </div>
-    {{/if}}
-    {{#if result.malware_md5}}
-      <div>
-        <span class="p-key">Malware MD5:</span>
-        <span class="p-value">{{result.malware_md5}}</span>
-      </div>
-    {{/if}}
+    </div>
     {{#if result.company_name}}
       <div>
         <span class="p-key">Company Name:</span>
@@ -98,12 +38,77 @@
         <span class="p-value">{{result.trap_name}}</span>
       </div>
     {{/if}}
-    {{#if result.trap_ip}}
+    {{#if result.event_timestamp}}
       <div>
-        <span class="p-key">Trap IP:</span>
-        <span class="p-value">{{result.trap_ip}}</span>
+        <span class="p-key">Event Time:</span>
+        <span class="p-value">{{result.event_timestamp}}</span>
       </div>
     {{/if}}
-    <hr>
+    {{#if result.attacker_ip}}
+      <div>
+        <span class="p-key">Attacker IP:</span>
+        <a href="{{block.userOptions.url}}/event-analysis-event-analyzer?search[attack_type]=0&search[sensor_type]=2&search[source_ip]={{result.attacker_ip}}&search[autoload]=true" class="p-link">{{result.attacker_ip}} {{fa-icon "external-link-square" class="external-link-icon"}}</a><br>
+      </div>
+    {{/if}}
+    {{#if result.jsonDownloadLink}}
+      <div>
+        <span class="p-key">Download JSON Link:</span>
+        <a href={{result.jsonDownloadLink}} class="p-link">{{fa-icon "download" class="external-link-icon"}} JSON</a><br>
+      </div>
+    {{/if}}
+    {{#if result.pcapDownloadLink}}
+      <div>
+        <span class="p-key">Download PCAP Link:</span>
+        <a href={{result.pcapDownloadLink}} class="p-link">{{fa-icon "download" class="external-link-icon"}} PCAP</a><br>
+      </div>
+    {{/if}}
+    {{#if result.binaryDownloadLink}}
+      <div>
+        <span class="p-key">Download Binary Link:</span>
+        <a href={{result.binaryDownloadLink}} class="p-link">{{fa-icon "download" class="external-link-icon"}} Files</a><br>
+      </div>
+    {{/if}}
+    {{#if result.attacked_port}}
+      <div>
+        <span class="p-key">Attacker Port:</span>
+        <span class="p-value">{{result.attacked_port}}</span>
+      </div>
+    {{/if}}
+    {{#if result.destination_ip}}
+      <div>
+        <span class="p-key">Destination IP:</span>
+        <span class="p-value">{{result.destination_ip}}</span>
+      </div>
+    {{/if}}
+    {{#if result.connect_duration}}
+      <div>
+        <span class="p-key">Connection Duration:</span>
+        <span class="p-value">{{result.connect_duration}} secs</span>
+      </div>
+    {{/if}}
+    {{#if result.protocol}}
+      <div class="service-pill">
+        <span class="p-key">Destination Port/Protocol:</span>
+        <span class="port">{{result.destination_port}}</span><span class="service">{{result.protocol}}</span>
+      </div>
+    {{/if}}
+    {{#if result.event_name}}
+      <div>
+        <span class="p-key">Event Name:</span>
+        <span class="p-value">{{result.event_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.malware_name}}
+      <div>
+        <span class="p-key">Malware Name:</span>
+        <span class="p-value">{{result.malware_name}}</span>
+      </div>
+    {{/if}}
+    {{#if result.malware_md5}}
+      <div>
+        <span class="p-key">Malware MD5:</span>
+        <span class="p-value">{{result.malware_md5}}</span>
+      </div>
+    {{/if}}
   {{/each}}
 {{/if}}
