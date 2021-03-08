@@ -24,6 +24,7 @@ module.exports = {
    */
   description:
     'TrapX DeceptionGrid is the industry’s first software platform that activates Active Defense to enable security teams to proactively plan, deploy, test and refine Deception deployments against attack scenarios outlined in MITRE ATT&CK.',
+  defaultColor: 'light-blue',
   entityTypes: ['IPv4', 'domain'],
   styles: ['./styles/style.less'],
   /**

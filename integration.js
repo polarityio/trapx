@@ -4,6 +4,7 @@ const request = require("request");
 const config = require("./config/config");
 const async = require("async");
 const fs = require("fs");
+const moment = require("moment");
 const fp = require('lodash/fp');
 
 let Logger;
@@ -166,12 +167,23 @@ function doLookup(entities, { url, ...optionsWithoutUrl }, cb) {
           data: null
         });
       } else {
+        const eventsFromTheLastWeek = fp.filter(
+          (event) => moment(event.event_timestamp).diff(moment().subtract(1, 'week'), 'days') >= 0,
+          fp.get('body.events', result)
+        );
         lookupResults.push({
           entity: result.entity,
           data: {
             summary: [],
             details: {
               ...result.body,
+              highestSeverityOfTheWeek:
+                eventsFromTheLastWeek.length &&
+                fp.flow(
+                  fp.sortBy(({ severity }) => (severity === 'low' ? -1 : severity === 'high' ? 1 : 0)),
+                  fp.first,
+                  fp.get('severity')
+                )(eventsFromTheLastWeek),
               binaryFilesAvailable: fp.some(fp.get('x_trapx_com_binary'), fp.get('body.events', result)),
               pcapFilesAvailable: fp.some(fp.get('x_trapx_com_pcap'), fp.get('body.events', result)),
               events: fp.flow(
