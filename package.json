@@ -4,9 +4,9 @@
   "main": "./integration.js",
   "private": true,
   "dependencies": {
-    "async": "^2.6",
+    "async": "^2.6.4",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
-    "request": "^2.88"
+    "moment": "^2.29.4",
+    "postman-request": "^2.88.1-postman.31"
   }
 }
