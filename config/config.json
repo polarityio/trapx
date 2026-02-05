@@ -83,5 +83,10 @@
       "userCanEdit": true,
       "adminOnly": false
     }
-  ]
+  ],
+  "reducer": {
+    "details": {
+      "file": "./reducers/details.json"
+    }
+  }
 }
